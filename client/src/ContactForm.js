@@ -1,11 +1,19 @@
 import React, { useState } from 'react'
+import Axios from 'axios'
 
 export default function ContactForm() {
     const [subject, setSubject] = useState()
     const [email, setEmail] = useState()
     const [message, setMessage] = useState()
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        Axios.post('/contacts', {message: message, subject: subject, email:email})
+        .then(res => console.log(res))
+        .catch(err=> console.log(err))
+    }
     return (
-        <form id="contact">
+        <form id="contact" onSubmit={handleSubmit}>
             <h1>Contact Me!</h1>
             <div className="formField">
                 <label for="email">Email</label>
